@@ -1,0 +1,697 @@
+<html>
+  <head>
+
+    <title>Busca Protocolo GDAUT</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <style>
+
+      .header {
+        height:50px;
+        font-size:1.8em;
+      }
+      .grey {
+        background-color: #d9d9d9;
+      }
+      .border-title {
+        border: 3px solid black;
+      }
+      .border-custom {
+        border: 1px solid black;
+      }
+      .border-label {
+        border-left: 1px solid black;
+        border-bottom: 1px solid black;
+      }
+      .border-input {
+        border-right: 1px solid black;
+        border-bottom: 1px solid black;
+      }
+      .border-value {
+        border-left: 1px solid black;
+        border-bottom: 1px solid black;
+        border-right: 1px solid black;
+      }
+
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .overlay {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.7);
+        transition: opacity 500ms;
+        visibility: hidden;
+        opacity: 0;
+      }
+      .overlay:target {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      .popup_success {
+        margin: 70px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 5px;
+        width: 70%;
+        position: relative;
+        transition: all 5s ease-in-out;
+      }
+
+      .popup_success h2 {
+        margin-top: 0;
+        color: #333;
+        font-family: Tahoma, Arial, sans-serif;
+      }
+
+      .popup_success .close_button {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        transition: all 200ms;
+        font-size: 30px;
+        font-weight: bold;
+        text-decoration: none;
+        color: #333;
+      }
+
+      .popup_success .close_button:hover {
+        color: #06D85F;
+      }
+
+      .overflow {
+        overflow-y: scroll;
+      }
+
+      .log_info {
+        font-size: 1.0em;
+      }
+
+      .log_title {
+        font-size:1.4em;
+        font-weight:bold;
+      }
+
+      .separator {
+        width : 100%;
+        margin-top: 2%;
+        margin-bottom: 2%;
+        height: 3px;
+        background-color:rgba(0, 0, 0, 0.7);
+      }
+      
+      .lds-spinner {
+        color:black;
+        display: inline-block;
+        position: relative;
+        width: 64px;
+        height: 64px;
+      }
+      .lds-spinner div {
+        transform-origin: 32px 32px;
+        animation: lds-spinner 1.2s linear infinite;
+      }
+      .lds-spinner div:after {
+        content: " ";
+        display: block;
+        position: absolute;
+        top: 3px;
+        left: 29px;
+        width: 5px;
+        height: 14px;
+        border-radius: 20%;
+        background:black;
+      }
+      .lds-spinner div:nth-child(1) {
+        transform: rotate(0deg);
+        animation-delay: -1.1s;
+      }
+      .lds-spinner div:nth-child(2) {
+        transform: rotate(30deg);
+        animation-delay: -1s;
+      }
+      .lds-spinner div:nth-child(3) {
+        transform: rotate(60deg);
+        animation-delay: -0.9s;
+      }
+      .lds-spinner div:nth-child(4) {
+        transform: rotate(90deg);
+        animation-delay: -0.8s;
+      }
+      .lds-spinner div:nth-child(5) {
+        transform: rotate(120deg);
+        animation-delay: -0.7s;
+      }
+      .lds-spinner div:nth-child(6) {
+        transform: rotate(150deg);
+        animation-delay: -0.6s;
+      }
+      .lds-spinner div:nth-child(7) {
+        transform: rotate(180deg);
+        animation-delay: -0.5s;
+      }
+      .lds-spinner div:nth-child(8) {
+        transform: rotate(210deg);
+        animation-delay: -0.4s;
+      }
+      .lds-spinner div:nth-child(9) {
+        transform: rotate(240deg);
+        animation-delay: -0.3s;
+      }
+      .lds-spinner div:nth-child(10) {
+        transform: rotate(270deg);
+        animation-delay: -0.2s;
+      }
+      .lds-spinner div:nth-child(11) {
+        transform: rotate(300deg);
+        animation-delay: -0.1s;
+      }
+      .lds-spinner div:nth-child(12) {
+        transform: rotate(330deg);
+        animation-delay: 0s;
+      }
+      @keyframes lds-spinner {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }		
+    </style>
+
+  </head>
+  <body class="text-center">
+    <img class="mb-4" src="https://i.ibb.co/nMR5JjG/kisspng-logo-prefeitura-de-belo-horizonte-regional-barreir-educao-aberta-a-distncia-da-pbh-5b6c46e4203541-4031729315338226921319.png" alt="" width="400" height="200">
+    <h1 class="h3 mb-3 font-weight-normal">Consulta Protocolos GDAUT</h1>
+        <div class="container mb-2">
+          <div class = "d-flex row justify-content-center mb-2">
+            <span class = "col-2 text-center"> Buscar por: </span>
+            <select class = "col-2" id="search_type">
+              <option value="protocolo">Protocolo</option>
+              <option value="indice">Índice Cadastral</option>
+              <option value="endereço">Endereço</option>
+              <option value="lpc">LPC</option>
+            </select>
+          </div>
+          <div class="d-flex row justify-content-center mb-2">
+            <span class="col-6">
+              <input id="value" class="form-control text-center" required autofocus>
+            </span> 
+          </div>
+          <div class="d-flex row justify-content-center">
+            <span class="col-6">
+              <a class="btn btn-lg btn-primary btn-block" href="#success_popup" onclick="read_value()">Pesquisar</a>
+            </span>
+          </div>
+        </div>   
+    <p class="mt-5 mb-3 text-muted"> GDAUT - Gerência de Desoneração e Auditoria Tributária</p>
+    <p class="mt-5 mb-3 text-muted">&copy; PBH - 2019</p>
+
+    <div id='success_popup' class="overlay">
+      <div class="popup_success">
+        <h2>Resultados da busca</h2>
+        <a class="close_button" href="#" onclick="clear_results()">&times;</a>
+        <div id="loading"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        <div class="result_content" id="show_results">        
+        </div>
+      </div>
+    </div>
+  </body>
+<script>
+  
+    var script_url = "https://script.google.com/macros/s/AKfycbzI_mf-ZiV2vftwSW_YlMX2NsxLhXMMpT2KDwihWlFRVIDwVuk/exec";
+    
+    // Make an AJAX call to Google Script
+
+    function build_lpc(data) {
+
+      for (item in data) {
+        let index = data[item]['index']
+        let protocol = data[item]['protocol']
+        let address = data[item]['address']
+        let district = data[item]['district']
+        let foundation = data[item]['foundation']
+        let structure = data[item]['structure']
+        let masonry = data[item]['masonry']
+        let roof = data[item]['roof']
+        let hydraulicsInstallation = data[item]['hydraulicsInstallation']
+        let electricInstallation = data[item]['electricInstallation']
+        let coating = data[item]['coating']
+        let miter = data[item]['miter']
+        let floor = data[item]['floor']
+        let reinforcement = data[item]['reinforcement']
+        let glass = data[item]['glass']
+        let electricEquipment = data[item]['electricEquipment']
+        let hydraulicEquipment = data[item]['hydraulicEquipment']
+        let painting = data[item]['painting']
+        let cleaning =  data[item]['cleaning']
+        let finalServices = data[item]['finalServices']
+        let total = data[item]['total']
+        let observations = data[item]['observations']
+        let bm = data[item]['bm']
+        let name = data[item]['name']
+        let date = data[item]['date']
+
+        $('#show_results').append("<div id='result"+parseInt(item)+"' class='search_result'>")
+        .append(`
+        <div class="container">
+      <div class="row">
+        <div class='col-12 text-center border-title header align-middle'>
+          <span><strong> Laudo Percentual de Construção</strong> </span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 border-custom grey">
+          <span><strong>01- DADOS GERAIS DO IMÓVEL</strong></span>
+        </div>
+      </div>
+      <div class="row">
+        <div class = "col-2 text-right border-label">
+          <span> Índice Cadastral:</span>
+        </div>
+        <div class="col-4 border-input">
+          <span>${index}</span>
+        </div>
+        <div class="col-2 text-right border-label">
+          <span>Nº Processo:</span>
+        </div>
+        <div class="col-4 border-input">
+          <span>${protocol}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2 text-right border-label">
+          <span>Endereço:</span>
+        </div>
+        <div class="col-6 border-input">
+          <span>${address}</span>
+        </div>
+        <div class="col-2 text-right border-label">
+          <span>Bairro:</span>
+        </div>
+        <div class="col-2 text-left border-input">
+          <span>${district}</span>
+        </div>
+      </div>
+      <div class="row border-custom grey">
+        <div class="col-5 text-center border-value">
+          <span><strong>02 - DESCRIÇÃO DOS SERVIÇOS</strong></span>
+        </div>
+        <div class='col-3 border-value text-center'>
+          <span><strong>03- PERCENTUAL TOTAL</strong></span>
+        </div>
+        <div class="col-4 border-value text-center">
+          <span><strong>04 - PERCENTUAL EXECUTADO</strong></span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-5 border-value">
+          <span>Fundações</span>
+        </div>
+        <div class="col-3 text-center border-value">
+          <span>08</span>
+        </div>
+        <div class="col-4 text-center border-value">
+          <span>${foundation}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-5 border-value">
+          <span> Estrutura </span>
+        </div>
+        <div class="col-3 text-center border-value">
+          <span>15</span>
+        </div>
+        <div class="col-4 text-center border-value">
+          <span>${structure}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class='col-5 border-value'>
+          <span>Alvenaria</span>
+        </div>
+        <div class="col-3 text-center border-value">
+          <span>10</span>
+        </div>
+        <div class="col-4 text-center border-value">
+          <span>${masonry}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class='col-5 border-value'>
+          <span>Cobertura</span>
+        </div>
+        <div class="col-3 text-center border-value">
+          <span>08</span>
+        </div>
+        <div class="col-4 text-center border-value">
+          <span>${roof}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class='col-5 border-value'>
+          <span>Instalação Hidráulica</span>
+        </div>
+        <div class="col-3 text-center border-value">
+          <span>08</span>
+        </div>
+        <div class="col-4 text-center border-value">
+          <span>${hydraulicsInstallation}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class='col-5 border-value'>
+          <span>Instalação Elétrica</span>
+        </div>
+        <div class="col-3 text-center border-value">
+          <span>04</span>
+        </div>
+        <div class="col-4 text-center border-value">
+          <span>${electricInstallation}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class='col-5 border-value'>
+          <span>Revestimento</span>
+        </div>
+        <div class="col-3 text-center border-value">
+          <span>12</span>
+        </div>
+        <div class="col-4 text-center border-value">
+          <span>${coating}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class='col-5 border-value'>
+          <span>Esquadrias</span>
+        </div>
+        <div class="col-3 text-center border-value">
+          <span>08</span>
+        </div>
+        <div class="col-4 text-center border-value">
+          <span>${miter}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class='col-5 border-value'>
+          <span>Piso</span>
+        </div>
+        <div class="col-3 text-center border-value">
+          <span>06</span>
+        </div>
+        <div class="col-4 text-center border-value">
+          <span>${floor}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class='col-5 border-value'>
+          <span>Ferragens</span>
+        </div>
+        <div class="col-3 text-center border-value">
+          <span>03</span>
+        </div>
+        <div class="col-4 text-center border-value">
+          <span>${reinforcement}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class='col-5 border-value'>
+          <span>Vidros</span>
+        </div>
+        <div class="col-3 text-center border-value">
+          <span>03</span>
+        </div>
+        <div class="col-4 text-center border-value">
+          <span>${glass}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class='col-5 border-value'>
+          <span>Aparelhos Elétricos</span>
+        </div>
+        <div class="col-3 text-center border-value">
+          <span>02</span>
+        </div>
+        <div class="col-4 text-center border-value">
+          <span>${electricEquipment}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class='col-5 border-value'>
+          <span>Aparelhos Sanitários</span>
+        </div>
+        <div class="col-3 text-center border-value">
+          <span>02</span>
+        </div>
+        <div class="col-4 text-center border-value">
+          <span>${hydraulicEquipment}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class='col-5 border-value'>
+          <span>Pintura</span>
+        </div>
+        <div class="col-3 text-center border-value">
+          <span>05</span>
+        </div>
+        <div class="col-4 text-center border-value">
+          <span>${painting}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class='col-5 border-value'>
+          <span>Raspagem/Limpeza</span>
+        </div>
+        <div class="col-3 text-center border-value">
+          <span>02</span>
+        </div>
+        <div class="col-4 text-center border-value">
+          <span>${cleaning}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class='col-5 border-value'>
+          <span>Serviços Finais</span>
+        </div>
+        <div class="col-3 text-center border-value">
+          <span>04</span>
+        </div>
+        <div class="col-4 text-center border-value">
+          <span>${finalServices}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class='col-5 border-value'>
+          <span><strong>Total</strong></span>
+        </div>
+        <div class="col-3 text-center border-value">
+          <span>100</span>
+        </div>
+        <div class="col-4 text-center border-value">
+          <span>${total}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class='col-12 border-value grey'>
+          <span><strong>05 - OBSERVAÇÕES</strong></span>
+        </div>
+      </div>
+      <div class="row">
+        <div class='col-12 border-value'>
+          <span>${observations}</span>
+        </div>
+      </div>
+    </div>
+    <div class="container border-value pt-2">
+      <div class="row">
+        <div class='ml-3 col-1 text-right'>
+          <span>BM:</span>
+        </div>
+        <div class="col-2 text-center border-custom">
+          <span>${bm}</span>
+        </div>
+        <div class="col-1 text-right">
+          <span>Nome:</span>
+        </div>
+        <div class="col-6 text-center border-custom">
+          <span>${name}</span>
+        </div>
+      </div>
+      <div class="row mt-2 mb-1">
+        <div class='date col-4'>
+        </div>
+        <div class='col-2 text-right'>
+          <span>Data:</span>
+        </div>
+        <div class='col-2 border-custom text-center'>
+          <span>${date}</span>
+        <div>
+      </div>
+    </div>
+        `)
+
+
+      $("#success_popup").addClass('overflow')
+
+      }
+
+    }
+
+    function build_table(data) {
+
+      if (data.length > 1) {
+
+        $("#show_results").append("<div> Mais de um protocolo foi encontrado segundo os parâmetros de pesquisa: </div>")
+
+      }
+
+      for (item in data) {
+
+        let protocol = data[item]['protocol']
+        let indice = data[item]['indice']
+        let type = data[item]['type']
+        let status = data[item]['status']
+        let address = data[item]['address']
+        let log = data[item]['log']
+        let accountable = data[item]['accountable']
+        let letter_or_ti = data[item]['letter_or_ti']
+        let observations = data[item]['observations']
+        let complaint = data[item]['complaint']
+        let region = data[item]['region']
+
+        //Splits log
+        if (log != "") {
+          var array_split_log = log.split("|")
+        }
+        
+       
+        $("#show_results").append("<div id='result"+parseInt(item)+"' class='search_result'>")
+        $("#result"+parseInt(item)).append("<table>")
+        .children("table").append("<tr>")
+        .children("tr").append("<td> Protocolo: "+protocol+"</td>")
+        .parent("table").append("</tr> <tr>")
+        .children("tr:last").append("<td>Índice Cadastral: "+indice+"</td>")
+        .parent("table").append("</tr> <tr>")
+        .children("tr:last").append("<td>Tipo: "+type+"</td>") 
+        .parent("table").append("</tr> <tr>")
+        .children("tr:last").append("<td>Status: "+status+"</td>")
+        .parent("table").append("</tr> <tr>")  
+        .children("tr:last").append("<td>Responsável: "+accountable+"</td>")
+        .parent("table").append("</tr> <tr>")
+        .children("tr:last").append("<td>Reclamação: "+complaint+"</td>")
+        .parent("table").append("</tr> <tr>")
+        .children("tr:last").append("<td>Observações: "+observations+"</td>")
+        .parent("table").append("</tr>")
+        .parent("div").append("</table>")
+
+        //Display all logs found
+
+        if (array_split_log != undefined) {
+          $("#show_results").append("<div class='text-left log_title mt-2'> Histórico do Protocolo </div>")
+        
+          $("#show_results").append("<table id='log"+parseInt(item)+"'>")
+
+          for (ar in array_split_log) {
+            $("#log"+parseInt(item)).append("<tr>").children("tr:last")
+              .append("<td class='log_info'>"+array_split_log[ar]+"</td>")
+              .parent("table:first").append("</tr>")
+          }
+
+          $("#show_results").append("</table>")
+          $("#show_results").append("</div>")  
+        }
+        
+        
+        if (parseInt(item) < data.length - 1) {
+          $("#show_results").append("<div class='separator'></div>")
+        }
+
+      }
+
+
+      
+
+    }
+
+    function clear_results() {
+
+      $("#show_results").empty()
+
+    }
+
+
+    function read_value() {
+
+    $("#loading").addClass("lds-spinner")
+
+    var value = $("#value").val();
+
+    var value = value.split(" ");
+
+    var value = value.join("+");
+
+    var search_type = $("#search_type").val()  
+
+    var url = script_url+"?search_type="+search_type+"&value="+value;
+
+    var request_headers = ""
+  
+    $.ajax({
+      crossDomain: true,
+      url: url,
+      method: "GET",
+      dataType: "json",
+      headers: request_headers,
+      error: function(jqXHR,textStatus,errorThrown) {
+        console.log("jqXHR is "+jqXHR.responseText)
+        console.log("textStatus is "+textStatus)
+        console.log("error thrown was "+errorThrown)
+      },
+      success: function (data,textStatus,xhr) {
+
+        console.log(data)
+
+        $("#loading").removeClass("lds-spinner");
+
+        if (data[0].found == true) {
+
+          switch (search_type) {
+            case "lpc":
+              build_lpc(data);
+            break;
+            default:
+              build_table(data);
+            break;
+          }
+
+          
+
+        } else {
+
+          $("#show_results").append("<div> Não foi possível encontrar o processo segundo os parâmetros utilizados. </div>")
+
+        }
+      }
+        })
+    }
+    
+    </script>
+
+</html>
